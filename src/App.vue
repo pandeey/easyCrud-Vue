@@ -36,14 +36,20 @@
       <el-button type="primary" @click="getAll">
         刷新
       </el-button>
+      <el-button type="primary" @click="add">
+        新增
+      </el-button>
     </el-row>
+    <md-modal :dialogVisible="isShow" @close="cancel" @submit="post"></md-modal>
   </div>
 </template>
 
 <script>
 import {BOOK, ALL} from './api/base'
+import MdModal from './components/modal'
 export default {
   name: 'App',
+  components: {MdModal},
   data () {
     let namevalid = (rule, value, callback) => {
       if (value === '') {
@@ -59,6 +65,7 @@ export default {
       } else callback()
     }
     return {
+      isShow: false,
       article: [],
       id: '',
       result: [],
@@ -81,6 +88,15 @@ export default {
     }
   },
   methods: {
+    add () {
+      this.isShow = true
+    },
+    cancel () {
+      this.isShow = false
+    },
+    post () {
+      this.isShow = false
+    },
     getwatch () {
       this.$message({
         message: this.name,
