@@ -1,9 +1,9 @@
 <template>
   <el-dialog
-    title="新增"
+    title="新增图书"
     :visible.sync="dialogVisible"
     width="30%" :before-close="handleCancel">
-    <span>这是一段信息</span>
+    <span>这是一段新增信息表</span>
     <span slot="footer" class="dialog-footer">
         <el-button @click="handleCancel">取 消</el-button>
         <el-button type="primary" @click="handleSubmit">确 定</el-button>
