@@ -14,3 +14,5 @@ export const BOOK = params => res('get', '/article/selectOne', params)
  * @constructor
  */
 export const ALL = () => res('get', '/article')
+
+export const ADD = params => res('post', '/article/sel', params)
