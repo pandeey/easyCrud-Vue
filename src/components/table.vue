@@ -1,63 +1,100 @@
 <template>
   <div>
-    <el-row >
+    <el-row>
+      <el-col :span="8">
+        <m-d-query @query="hQuery()"></m-d-query>
+      </el-col>
+      <el-col :span="2" >
+        <el-button type="primary" @click="getAll" plain icon="el-icon-refresh">
+          刷新
+        </el-button>
+      </el-col>
+      <el-col :span="2">
+        <el-button type="primary" @click="add" icon="el-icon-plus">
+          新增
+        </el-button>
+      </el-col>
+      <el-col :span="2">
+        <el-button type="info"
+                   plain
+                   @click="handlePush"
+                   icon="el-icon-s-promotion">
+          跳转测试
+        </el-button>
+      </el-col>
+    </el-row>
       <el-table
         :data="article"
-        style="width: 75%"
         :border="true"
-        class="tab"
+        style="width: 920px;"
         :stripe="true"
+        class="tab"
+        v-loading="loadding"
       >
         <el-table-column
           prop="id"
           label="id"
-          width="180">
+          width="80px">
         </el-table-column>
         <el-table-column
           prop="title"
           label="标题"
-          width="180">
+          width="180px">
         </el-table-column>
         <el-table-column
           prop="description"
-          label="描述">
+          label="描述"
+          width="180">
         </el-table-column>
         <el-table-column
           prop="author"
-          label="作者">
+          label="作者"
+          width="80">
         </el-table-column>
         <el-table-column
-          prop="readNum"
-          label="阅读数">
+          prop="createTime"
+          label="添加时间"
+          width="180px">
+        </el-table-column>
+        <el-table-column
+          prop="updateTime"
+          label="更新时间"
+          width="180px">
+        </el-table-column>
+        <el-table-column
+          prop="recommend"
+          label="是否推荐"
+          fixed="right"
+          width="80">
+        </el-table-column>
+        <el-table-column
+          prop="likeNum"
+          label="喜欢数量"
+          width="80">
         </el-table-column>
       </el-table>
-    </el-row>
-    <el-row>
-      <el-button type="primary" @click="getAll">
-        刷新
-      </el-button>
-      <el-button type="primary" @click="add">
-        新增
-      </el-button>
-    </el-row>
     <md-modal :dialogVisible="isShow" @close="cancel" @submit="post"></md-modal>
+
   </div>
 </template>
 
 <script>
-import {ALL, BOOK} from '../api/base'
+import {ALL, BOOK, QUERY} from '../api/base'
 import MdModal from '../components/modal'
+import MDQuery from '../components/query'
 
 export default {
   name: 'MDtable',
-  components: {MdModal},
+  components: {MdModal, MDQuery},
   data () {
     return {
+      loadding: true,
       isShow: false,
       article: [],
       id: '',
       result: [],
       arr: [],
+      query: {},
       name: '',
       app: {
         username: '',
@@ -68,8 +105,17 @@ export default {
     }
   },
   watch: {
+    recommend (val) {
+      this.$message({
+        type: 'info',
+        message: val
+      })
+    }
   },
   methods: {
+    handlePush () {
+      this.$router.push('fans')
+    },
     add () {
       this.isShow = true
     },
@@ -98,6 +144,12 @@ export default {
         })
       })
     },
+    async hQuery (val) {
+      let params = val
+      await QUERY(params).then((res) => {
+        this.article = res.data
+      })
+    },
     async getBook () {
       const param = {
         id: this.id
@@ -112,6 +164,7 @@ export default {
       await ALL().then((res) => {
         this.article = res.data
       })
+      this.loadding = false
     }
   },
   created () {
@@ -121,8 +174,12 @@ export default {
 </script>
 
 <style>
-  .tab{
-    margin-left: 150px;
-    margin-top: 130px;
+  .tab {
+    margin-top: 50px;
+    margin-left: 75px;
   }
+  /*.que{*/
+  /*  margin-top: 30px;*/
+  /*  margin-left: 75px;*/
+  /*}*/
 </style>
