@@ -10,6 +10,7 @@
     </el-button>
     <p  > {{demo1}}</p>
     <span style="display: flex;"> {{demo1}}</span>
+    <p class="ttx">测试文字</p>
   </div>
 </template>
 
