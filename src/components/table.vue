@@ -9,7 +9,7 @@
           刷新
         </el-button>
       </el-col>
-      <el-col :span="2">
+      <el-col :span="3">
         <el-button type="primary" @click="add" icon="el-icon-plus">
           新增
         </el-button>
