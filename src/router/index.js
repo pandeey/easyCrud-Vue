@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
+import shop from '../components/shopMall'
 import fans from '../components/fans'
 import table from '../components/table'
 import ElementUI from 'element-ui'
@@ -25,6 +26,10 @@ const router = new Router({
     {
       path: '/table',
       component: table
+    },
+    {
+      path: '/shop',
+      component: shop
     }
   ],
   mode: 'history',
