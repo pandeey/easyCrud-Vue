@@ -30,8 +30,10 @@ export default {
     background-color: #e3e4e5;
     height 20px
     width 100%
-    padding 0
-    margin 0
+    margin-left auto
+    margin-right auto
+    box-sizing: border-box
+    display: block;
     .city{
       margin 2px 211px
     }
